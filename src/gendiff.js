@@ -2,7 +2,7 @@
 
 const program = require('commander');
 
-const action = (firstConfig, secondConfig) => (`test ${firstConfig} ${secondConfig}`);
+const action = (firstConfig, secondConfig) => (`testTEST ${firstConfig} ${secondConfig}`);
 
 program
   .description('Compares two configuration files and shows a difference.')
