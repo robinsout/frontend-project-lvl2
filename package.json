@@ -13,7 +13,6 @@
     "author": "Valery Kovalev",
     "license": "MIT",
     "scripts": {
-        "test": "jest --colors",
         "babel": "./node_modules/.bin/babel src --out-dir dist",
         "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
         "prepublishOnly": "npm run build"
