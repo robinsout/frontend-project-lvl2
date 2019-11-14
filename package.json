@@ -1,6 +1,6 @@
 {
     "bin": {
-        "gendiff": "dist/gendiff.js"
+        "gendiff": "dist/index.js"
     },
     "name": "gendiff000",
     "version": "0.0.1",
