@@ -3,12 +3,12 @@ import genDiff from '../gendiff';
 const fs = require('fs');
 
 describe('tests', () => {
-  test('should open files, parse json and return contents', () => {
-    const filePath1 = `${__dirname}/__fixtures__/test1.json`;
-    const filePath2 = `${__dirname}/__fixtures__/test2.json`;
-    const resultPath = `${__dirname}/__fixtures__/result1.json`;
+    test('should open files, parse json and return contents', () => {
+        const filePath1 = `${__dirname}/__fixtures__/test1.json`;
+        const filePath2 = `${__dirname}/__fixtures__/test2.json`;
+        const resultPath = `${__dirname}/__fixtures__/result1.txt`;
 
-    const result = JSON.parse(fs.readFileSync(resultPath));
-    expect(genDiff(filePath1, filePath2)).toEqual(result);
-  });
+        const result = fs.readFileSync(resultPath, 'utf8');
+        expect(genDiff(filePath1, filePath2)).toEqual(result);
+    });
 });
