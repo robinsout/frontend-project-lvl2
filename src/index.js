@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import action from './gendiff';
+import compareConfigs from './gendiff';
 
-export default action;
+export default compareConfigs;
 
 const program = require('commander');
 
@@ -12,7 +12,7 @@ program
     .option('-f, --format [type]', 'Output format')
     .arguments('<firstConfig> <secondConfig>')
     .action((firstConfig, secondConfig) => {
-        console.log(action(firstConfig, secondConfig));
+        console.log(compareConfigs(firstConfig, secondConfig));
     });
 
 program.parse(process.argv);
