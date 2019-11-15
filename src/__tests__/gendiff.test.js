@@ -7,7 +7,6 @@ describe('tests', () => {
 
     test('should compare configs and return string result', () => {
         const resultPath = `${fixturesPath}result1.txt`;
-
         const result = fs.readFileSync(resultPath, 'utf8');
         expect(genDiff(`${fixturesPath}test1.json`, `${fixturesPath}test2.json`)).toEqual(result);
         expect(genDiff(`${fixturesPath}test1.yaml`, `${fixturesPath}test2.yaml`)).toEqual(result);
