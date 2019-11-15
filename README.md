@@ -13,6 +13,10 @@ Help:
 
 [![asciicast](https://asciinema.org/a/1aiZsEWyqEx3QwWQfI585aePf.svg)](https://asciinema.org/a/1aiZsEWyqEx3QwWQfI585aePf)
 
-Use:
+Use JSON:
 
 [![asciicast](https://asciinema.org/a/KWJYilWRwFmL5kHWcbxR7z4BI.svg)](https://asciinema.org/a/KWJYilWRwFmL5kHWcbxR7z4BI)
+
+Use YAML:
+
+[![asciicast](https://asciinema.org/a/FtGC3cSgfLMfzayqaQEYL37yA.svg)](https://asciinema.org/a/FtGC3cSgfLMfzayqaQEYL37yA)
