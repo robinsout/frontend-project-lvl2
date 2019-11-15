@@ -3,6 +3,6 @@ publish:
 lint:
 	npx eslint .
 test:
-	jest
+	npm test
 test-coverage:
-	jest --coverave
+	npm test -- --coverage
