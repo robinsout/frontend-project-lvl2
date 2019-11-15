@@ -2,6 +2,8 @@
 
 import action from './gendiff';
 
+export default action;
+
 const program = require('commander');
 
 program
