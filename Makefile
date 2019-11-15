@@ -4,3 +4,5 @@ lint:
 	npx eslint .
 test:
 	jest
+test-coverage:
+	jest --coverave
