@@ -1,10 +1,10 @@
-const fs = require('fs');
+import parseConfig from './parsers';
+
 const _ = require('lodash');
 
 export default (firstConfig, secondConfig) => {
-    const configBefore = JSON.parse(fs.readFileSync(firstConfig));
-    const configAfter = JSON.parse(fs.readFileSync(secondConfig));
-    //  const result = { ...configBefore, ...configAfter };
+    const configBefore = parseConfig(firstConfig);
+    const configAfter = parseConfig(secondConfig);
 
     const result = ['{'];
 
