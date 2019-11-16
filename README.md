@@ -21,3 +21,7 @@ Use JSON:
 Use YAML:
 
 [![asciicast](https://asciinema.org/a/FtGC3cSgfLMfzayqaQEYL37yA.svg)](https://asciinema.org/a/FtGC3cSgfLMfzayqaQEYL37yA)
+
+Use ini:
+
+[![asciicast](https://asciinema.org/a/IvweIKOfXQefxqfVRVCFwKNxv.svg)](https://asciinema.org/a/IvweIKOfXQefxqfVRVCFwKNxv)
