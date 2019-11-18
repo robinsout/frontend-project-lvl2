@@ -2,7 +2,7 @@ import parseConfig from './parsers';
 
 const _ = require('lodash');
 
-export default (firstConfig, secondConfig) => {
+const render = (firstConfig, secondConfig) => {
     const configBefore = parseConfig(firstConfig);
     const configAfter = parseConfig(secondConfig);
 
@@ -28,3 +28,5 @@ export default (firstConfig, secondConfig) => {
 
     return result.join('');
 };
+
+export default render;
