@@ -1,6 +1,21 @@
 import genDiff from '../gendiff';
+import parseConfig from '../parsers';
 
 const fs = require('fs');
+
+describe('check AST', () => {
+    const fixturesPath = `${__dirname}/__fixtures__/flat/`;
+    const astResultPath = `${fixturesPath}result_ast.json`;
+    const result = parseConfig(astResultPath);
+
+    test.each([
+        [`${fixturesPath}test1.json`, `${fixturesPath}test2.json`, result],
+        [`${fixturesPath}test1.yaml`, `${fixturesPath}test2.yaml`, result],
+        [`${fixturesPath}test1.ini`, `${fixturesPath}test2.ini`, result],
+    ])('should compare\n%s\n%s\nand return string result', (configBefore, configAfter, expectedResult) => {
+        expect(genDiff(configBefore, configAfter)).toEqual(expectedResult);
+    });
+});
 
 describe('flat configs', () => {
     const fixturesPath = `${__dirname}/__fixtures__/flat/`;

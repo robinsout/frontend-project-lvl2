@@ -2,13 +2,12 @@ import parseConfig from './parsers';
 
 const _ = require('lodash');
 
-const render = (firstConfig, secondConfig) => {
-    const configBefore = parseConfig(firstConfig);
-    const configAfter = parseConfig(secondConfig);
-
-    const result = ['{'];
-
+const render = (configBefore, configAfter, result) => {
     _.each(configBefore, (value, key) => {
+        if (typeof value === 'object' && _.has(configAfter, key)) {
+            console.log(key, ':', value);
+            return render(value, configAfter[key], result);
+        }
         if (!_.has(configAfter, key)) {
             result.push(`\n  - ${key}: ${value}`);
         } else if (configBefore[key] !== configAfter[key]) {
@@ -25,8 +24,16 @@ const render = (firstConfig, secondConfig) => {
         }
     });
     result.push('\n}');
-
-    return result.join('');
+    return result;
 };
 
-export default render;
+const action = (firstConfig, secondConfig) => {
+    const configBefore = parseConfig(firstConfig);
+    const configAfter = parseConfig(secondConfig);
+
+    const result = ['{'];
+
+    return render(configBefore, configAfter, result).join('');
+};
+
+export default action;
