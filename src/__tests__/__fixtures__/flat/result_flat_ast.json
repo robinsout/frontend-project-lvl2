@@ -1,0 +1,45 @@
+{
+  "diff": [
+    {
+      "type": "key",
+      "body": {
+        "host": "hexlet.io"
+      }
+    },
+    {
+      "type": "key",
+      "body": {
+        "timeout": "50"
+      },
+      "status": "minus"
+    },
+    {
+      "type": "key",
+      "body": {
+        "timeout": "20"
+      },
+      "status": "plus"
+    },
+    {
+      "type": "key",
+      "body": {
+        "proxy": "123.234.53.22"
+      },
+      "status": "minus"
+    },
+    {
+      "type": "key",
+      "body": {
+        "follow": "false"
+      },
+      "status": "minus"
+    },
+    {
+      "type": "key",
+      "body": {
+        "verbose": "true"
+      },
+      "status": "plus"
+    }
+  ]
+}
