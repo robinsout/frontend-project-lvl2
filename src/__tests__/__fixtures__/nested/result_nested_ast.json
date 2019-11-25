@@ -1,0 +1,154 @@
+[
+  {
+    "keyName": "common",
+    "keyValue": "",
+    "type": "",
+    "children": [
+      {
+        "keyName": "follow",
+        "keyValue": false,
+        "type": "minus",
+        "children": []
+      },
+      {
+        "keyName": "setting1",
+        "keyValue": "Value 1",
+        "type": "",
+        "children": []
+      },
+      {
+        "keyName": "setting2",
+        "keyValue": 200,
+        "type": "minus",
+        "children": []
+      },
+      {
+        "keyName": "setting3",
+        "keyValue": true,
+        "type": "minus",
+        "children": []
+      },
+      {
+        "keyName": "setting3",
+        "keyValue": "",
+        "type": "plus",
+        "children": [
+          {
+            "keyName": "key",
+            "keyValue": "value",
+            "type": "",
+            "children": []
+          }
+        ]
+      },
+      {
+        "keyName": "setting6",
+        "keyValue": "",
+        "type": "",
+        "children": [
+          {
+            "keyName": "key",
+            "keyValue": "value",
+            "type": "",
+            "children": []
+          },
+          {
+            "keyName": "ops",
+            "keyValue": "vops",
+            "type": "plus",
+            "children": []
+          }
+        ]
+      },
+      {
+        "keyName": "setting4",
+        "keyValue": "blah blah",
+        "type": "plus",
+        "children": []
+      },
+      {
+        "keyName": "setting5",
+        "keyValue": "",
+        "type": "plus",
+        "children": [
+          {
+            "keyName": "key",
+            "keyValue": "value",
+            "type": "",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "keyName": "group1",
+    "keyValue": "",
+    "type": "",
+    "children": [
+      {
+        "keyName": "baz",
+        "keyValue": "bars",
+        "type": "plus",
+        "children": []
+      },
+      {
+        "keyName": "baz",
+        "keyValue": "bas",
+        "type": "minus",
+        "children": []
+      },
+      {
+        "keyName": "foo",
+        "keyValue": "bar",
+        "type": "",
+        "children": []
+      },
+      {
+        "keyName": "nest",
+        "keyValue": "",
+        "type": "minus",
+        "children": [
+          {
+            "keyName": "key",
+            "keyValue": "value",
+            "type": "",
+            "children": []
+          }
+        ]
+      },
+      {
+        "keyName": "nest",
+        "keyValue": "str",
+        "type": "plus",
+        "children": []
+      }
+    ]
+  },
+  {
+    "keyName": "group2",
+    "keyValue": "",
+    "type": "minus",
+    "children": [
+      {
+        "keyName": "abc",
+        "keyValue": "12345",
+        "type": "",
+        "children": []
+      }
+    ]
+  },
+  {
+    "keyName": "group3",
+    "keyValue": "",
+    "type": "plus",
+    "children": [
+      {
+        "keyName": "fee",
+        "keyValue": "100500",
+        "type": "",
+        "children": []
+      }
+    ]
+  }
+]
