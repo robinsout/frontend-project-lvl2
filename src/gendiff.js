@@ -2,86 +2,85 @@ import parseConfig from './parsers';
 
 const _ = require('lodash');
 
-// const render = (configBefore, configAfter, result) => {
-//     _.each(configBefore, (value, key) => {
-//         if (typeof value === 'object' && _.has(configAfter, key)) {
-//             console.log(key, ':', value);
-//             return render(value, configAfter[key], result);
-//         }
-//         if (!_.has(configAfter, key)) {
-//             result.push(`\n  - ${key}: ${value}`);
-//         } else if (configBefore[key] !== configAfter[key]) {
-//             result.push(`\n  - ${key}: ${configBefore[key]}`);
-//             result.push(`\n  + ${key}: ${configAfter[key]}`);
-//         } else {
-//             result.push(`\n    ${key}: ${value}`);
-//         }
-//     });
-
-//     _.each(configAfter, (value, key) => {
-//         if (!_.has(configBefore, key)) {
-//             result.push(`\n  + ${key}: ${value}`);
-//         }
-//     });
-//     result.push('\n}');
-//     return result;
-// };
-
-const validate = (configBefore, configAfter, result = { diff: [] }) => {
+const validate = (configBefore, configAfter, result = []) => {
     _.each(configBefore, (value, key) => {
-        // console.log(key, ':', value);
-        if (typeof value === 'object' && _.has(configAfter, key)) {
-            return validate(value, configAfter[key], result);
+        if (_.has(configAfter, key) && typeof value === 'object' && typeof configAfter[key] === 'object') {
+            const keyToAdd = {
+                keyName: key,
+                keyValue: '',
+                type: '',
+                children: [],
+            };
+            result.push(keyToAdd);
+            return validate(value, configAfter[key], result[result.length - 1].children);
+        }
+        if (typeof value === 'object') {
+            const keyToAdd = {
+                keyName: key,
+                keyValue: '',
+                type: 'minus',
+                children: [value],
+            };
+            return result.push(keyToAdd);
         }
         if (!_.has(configAfter, key)) {
             const keyToAdd = {
-                type: 'key',
-                body: {
-                    [key]: `${value}`,
-                },
-                status: 'minus',
+                keyName: key,
+                keyValue: value,
+                type: 'minus',
+                children: [],
             };
-            result.diff.push(keyToAdd);
-        } else if (configBefore[key] !== configAfter[key]) {
+            return result.push(keyToAdd);
+        }
+        if (configBefore[key] !== configAfter[key]) {
             const keyBeforeToAdd = {
-                type: 'key',
-                body: {
-                    [key]: `${value}`,
-                },
-                status: 'minus',
+                keyName: key,
+                keyValue: value,
+                type: 'minus',
+                children: [],
             };
             const keyAfterToAdd = {
-                type: 'key',
-                body: {
-                    [key]: `${configAfter[key]}`,
-                },
-                status: 'plus',
+                keyName: key,
+                keyValue: typeof configAfter[key] === 'object' ? '' : configAfter[key],
+                type: 'plus',
+                children: typeof configAfter[key] !== 'object' ? [] : configAfter[key],
             };
-            result.diff.push(keyBeforeToAdd);
-            result.diff.push(keyAfterToAdd);
-        } else {
+            result.push(keyBeforeToAdd);
+            result.push(keyAfterToAdd);
+            return result;
+        }
+        if (configBefore[key] === configAfter[key]) {
             const keyToAdd = {
-                type: 'key',
-                body: {
-                    [key]: `${value}`,
-                },
+                keyName: key,
+                keyValue: value,
+                type: '',
+                children: [],
             };
-            result.diff.push(keyToAdd);
+            return result.push(keyToAdd);
         }
     });
 
     _.each(configAfter, (value, key) => {
-        if (!_.has(configBefore, key)) {
-            const keyAfterToAdd = {
-                type: 'key',
-                body: {
-                    [key]: `${configAfter[key]}`,
-                },
-                status: 'plus',
+        if (!_.has(configBefore, key) && typeof value === 'object') {
+            const keyToAdd = {
+                keyName: key,
+                keyValue: '',
+                type: 'plus',
+                children: [value],
             };
-            result.diff.push(keyAfterToAdd);
+            return result.push(keyToAdd);
+        }
+        if (!_.has(configBefore, key)) {
+            const keyToAdd = {
+                keyName: key,
+                keyValue: value,
+                type: 'plus',
+                children: [],
+            };
+            return result.push(keyToAdd);
         }
     });
+
     return result;
 };
 
@@ -89,7 +88,9 @@ const action = (firstConfig, secondConfig) => {
     const configBefore = parseConfig(firstConfig);
     const configAfter = parseConfig(secondConfig);
 
-    return validate(configBefore, configAfter);
+    const result = validate(configBefore, configAfter);
+    console.log(JSON.stringify(result));
+    return result;
 };
 
 export default action;

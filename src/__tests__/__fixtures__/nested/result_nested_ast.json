@@ -5,12 +5,6 @@
     "type": "",
     "children": [
       {
-        "keyName": "follow",
-        "keyValue": false,
-        "type": "minus",
-        "children": []
-      },
-      {
         "keyName": "setting1",
         "keyValue": "Value 1",
         "type": "",
@@ -18,7 +12,7 @@
       },
       {
         "keyName": "setting2",
-        "keyValue": 200,
+        "keyValue": "200",
         "type": "minus",
         "children": []
       },
@@ -32,14 +26,9 @@
         "keyName": "setting3",
         "keyValue": "",
         "type": "plus",
-        "children": [
-          {
-            "keyName": "key",
-            "keyValue": "value",
-            "type": "",
-            "children": []
-          }
-        ]
+        "children": {
+          "key": "value"
+        }
       },
       {
         "keyName": "setting6",
@@ -61,6 +50,12 @@
         ]
       },
       {
+        "keyName": "follow",
+        "keyValue": false,
+        "type": "plus",
+        "children": []
+      },
+      {
         "keyName": "setting4",
         "keyValue": "blah blah",
         "type": "plus",
@@ -72,10 +67,7 @@
         "type": "plus",
         "children": [
           {
-            "keyName": "key",
-            "keyValue": "value",
-            "type": "",
-            "children": []
+            "key5": "value5"
           }
         ]
       }
@@ -88,14 +80,14 @@
     "children": [
       {
         "keyName": "baz",
-        "keyValue": "bars",
-        "type": "plus",
+        "keyValue": "bas",
+        "type": "minus",
         "children": []
       },
       {
         "keyName": "baz",
-        "keyValue": "bas",
-        "type": "minus",
+        "keyValue": "bars",
+        "type": "plus",
         "children": []
       },
       {
@@ -110,18 +102,9 @@
         "type": "minus",
         "children": [
           {
-            "keyName": "key",
-            "keyValue": "value",
-            "type": "",
-            "children": []
+            "key": "value"
           }
         ]
-      },
-      {
-        "keyName": "nest",
-        "keyValue": "str",
-        "type": "plus",
-        "children": []
       }
     ]
   },
@@ -131,10 +114,7 @@
     "type": "minus",
     "children": [
       {
-        "keyName": "abc",
-        "keyValue": "12345",
-        "type": "",
-        "children": []
+        "abc": "12345"
       }
     ]
   },
@@ -144,10 +124,7 @@
     "type": "plus",
     "children": [
       {
-        "keyName": "fee",
-        "keyValue": "100500",
-        "type": "",
-        "children": []
+        "fee": "100500"
       }
     ]
   }
