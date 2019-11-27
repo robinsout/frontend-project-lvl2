@@ -4,7 +4,12 @@ const _ = require('lodash');
 
 const validate = (configBefore, configAfter, result = []) => {
     _.each(configBefore, (value, key) => {
-        if (_.has(configAfter, key) && typeof value === 'object' && typeof configAfter[key] === 'object') {
+        const oldValueIsObject = typeof value === 'object';
+        const newValueIsObject = typeof configAfter[key] === 'object';
+        const keyWasRemoved = !_.has(configAfter, key);
+        const valuesAreEqual = configBefore[key] === configAfter[key];
+
+        if (!keyWasRemoved && oldValueIsObject && newValueIsObject) {
             const keyToAdd = {
                 keyName: key,
                 keyValue: '',
@@ -14,7 +19,7 @@ const validate = (configBefore, configAfter, result = []) => {
             result.push(keyToAdd);
             return validate(value, configAfter[key], result[result.length - 1].children);
         }
-        if (typeof value === 'object') {
+        if (oldValueIsObject) {
             const keyToAdd = {
                 keyName: key,
                 keyValue: '',
@@ -23,7 +28,7 @@ const validate = (configBefore, configAfter, result = []) => {
             };
             return result.push(keyToAdd);
         }
-        if (!_.has(configAfter, key)) {
+        if (keyWasRemoved) {
             const keyToAdd = {
                 keyName: key,
                 keyValue: `${value}`,
@@ -32,24 +37,7 @@ const validate = (configBefore, configAfter, result = []) => {
             };
             return result.push(keyToAdd);
         }
-        if (configBefore[key] !== configAfter[key]) {
-            const keyBeforeToAdd = {
-                keyName: key,
-                keyValue: `${value}`,
-                type: 'minus',
-                children: [],
-            };
-            const keyAfterToAdd = {
-                keyName: key,
-                keyValue: typeof configAfter[key] === 'object' ? '' : `${configAfter[key]}`,
-                type: 'plus',
-                children: typeof configAfter[key] !== 'object' ? [] : configAfter[key],
-            };
-            result.push(keyBeforeToAdd);
-            result.push(keyAfterToAdd);
-            return result;
-        }
-        if (configBefore[key] === configAfter[key]) {
+        if (valuesAreEqual) {
             const keyToAdd = {
                 keyName: key,
                 keyValue: `${value}`,
@@ -58,29 +46,42 @@ const validate = (configBefore, configAfter, result = []) => {
             };
             return result.push(keyToAdd);
         }
+        if (!valuesAreEqual) {
+            const keyBeforeToAdd = {
+                keyName: key,
+                keyValue: `${value}`,
+                type: 'minus',
+                children: [],
+            };
+            const keyAfterToAdd = {
+                keyName: key,
+                keyValue: newValueIsObject ? '' : `${configAfter[key]}`,
+                type: 'plus',
+                children: !newValueIsObject ? [] : configAfter[key],
+            };
+            result.push(keyBeforeToAdd);
+            result.push(keyAfterToAdd);
+            return result;
+        }
+
+        return result;
     });
 
     _.each(configAfter, (value, key) => {
-        if (!_.has(configBefore, key) && typeof value === 'object') {
-            const keyToAdd = {
-                keyName: key,
-                keyValue: '',
-                type: 'plus',
-                children: [value],
-            };
-            return result.push(keyToAdd);
-        }
-        if (!_.has(configBefore, key)) {
-            const keyToAdd = {
-                keyName: key,
-                keyValue: `${value}`,
-                type: 'plus',
-                children: [],
-            };
-            return result.push(keyToAdd);
-        }
-    });
+        const keyWasAdded = !_.has(configBefore, key);
 
+        if (!keyWasAdded) {
+            return;
+        }
+
+        const keyToAdd = {
+            keyName: key,
+            keyValue: typeof value === 'object' ? '' : `${value}`,
+            type: 'plus',
+            children: typeof value === 'object' ? [value] : [],
+        };
+        result.push(keyToAdd);
+    });
     return result;
 };
 
