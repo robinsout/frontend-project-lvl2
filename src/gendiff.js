@@ -26,7 +26,7 @@ const validate = (configBefore, configAfter, result = []) => {
         if (!_.has(configAfter, key)) {
             const keyToAdd = {
                 keyName: key,
-                keyValue: value,
+                keyValue: `${value}`,
                 type: 'minus',
                 children: [],
             };
@@ -35,13 +35,13 @@ const validate = (configBefore, configAfter, result = []) => {
         if (configBefore[key] !== configAfter[key]) {
             const keyBeforeToAdd = {
                 keyName: key,
-                keyValue: value,
+                keyValue: `${value}`,
                 type: 'minus',
                 children: [],
             };
             const keyAfterToAdd = {
                 keyName: key,
-                keyValue: typeof configAfter[key] === 'object' ? '' : configAfter[key],
+                keyValue: typeof configAfter[key] === 'object' ? '' : `${configAfter[key]}`,
                 type: 'plus',
                 children: typeof configAfter[key] !== 'object' ? [] : configAfter[key],
             };
@@ -52,7 +52,7 @@ const validate = (configBefore, configAfter, result = []) => {
         if (configBefore[key] === configAfter[key]) {
             const keyToAdd = {
                 keyName: key,
-                keyValue: value,
+                keyValue: `${value}`,
                 type: '',
                 children: [],
             };
@@ -73,7 +73,7 @@ const validate = (configBefore, configAfter, result = []) => {
         if (!_.has(configBefore, key)) {
             const keyToAdd = {
                 keyName: key,
-                keyValue: value,
+                keyValue: `${value}`,
                 type: 'plus',
                 children: [],
             };

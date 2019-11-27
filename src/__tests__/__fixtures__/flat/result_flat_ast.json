@@ -7,13 +7,13 @@
   },
   {
     "keyName": "timeout",
-    "keyValue": 50,
+    "keyValue": "50",
     "type": "minus",
     "children": []
   },
   {
     "keyName": "timeout",
-    "keyValue": 20,
+    "keyValue": "20",
     "type": "plus",
     "children": []
   },
@@ -25,13 +25,13 @@
   },
   {
     "keyName": "follow",
-    "keyValue": false,
+    "keyValue": "false",
     "type": "minus",
     "children": []
   },
   {
     "keyName": "verbose",
-    "keyValue": true,
+    "keyValue": "true",
     "type": "plus",
     "children": []
   }

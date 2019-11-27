@@ -18,7 +18,7 @@
       },
       {
         "keyName": "setting3",
-        "keyValue": true,
+        "keyValue": "true",
         "type": "minus",
         "children": []
       },
@@ -51,7 +51,7 @@
       },
       {
         "keyName": "follow",
-        "keyValue": false,
+        "keyValue": "false",
         "type": "plus",
         "children": []
       },
