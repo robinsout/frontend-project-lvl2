@@ -90,7 +90,6 @@ const action = (firstConfig, secondConfig) => {
     const configAfter = parseConfig(secondConfig);
 
     const result = validate(configBefore, configAfter);
-    console.log(JSON.stringify(result));
     return result;
 };
 
