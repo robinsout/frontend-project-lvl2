@@ -26,7 +26,7 @@ describe('check nested AST', () => {
     test.each([
         [`${fixturesPath}test1.json`, `${fixturesPath}test2.json`, result],
         [`${fixturesPath}test1.yaml`, `${fixturesPath}test2.yaml`, result],
-        // [`${fixturesPath}test1.ini`, `${fixturesPath}test2.ini`, result],
+        [`${fixturesPath}test1.ini`, `${fixturesPath}test2.ini`, result],
     ])('should compare\n%s\n%s\nand return nested AST result', (configBefore, configAfter, expectedResult) => {
         expect(genDiff(configBefore, configAfter)).toEqual(expectedResult);
     });
