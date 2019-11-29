@@ -14,14 +14,13 @@ Help:
 
 [![asciicast](https://asciinema.org/a/1aiZsEWyqEx3QwWQfI585aePf.svg)](https://asciinema.org/a/1aiZsEWyqEx3QwWQfI585aePf)
 
-Use JSON:
+Flat configs:
 
 [![asciicast](https://asciinema.org/a/KWJYilWRwFmL5kHWcbxR7z4BI.svg)](https://asciinema.org/a/KWJYilWRwFmL5kHWcbxR7z4BI)
 
-Use YAML:
-
 [![asciicast](https://asciinema.org/a/FtGC3cSgfLMfzayqaQEYL37yA.svg)](https://asciinema.org/a/FtGC3cSgfLMfzayqaQEYL37yA)
 
-Use ini:
-
 [![asciicast](https://asciinema.org/a/IvweIKOfXQefxqfVRVCFwKNxv.svg)](https://asciinema.org/a/IvweIKOfXQefxqfVRVCFwKNxv)
+
+Nested configs:
+[![asciicast](https://asciinema.org/a/1aDaiyEiggbzW1P7YZaFDoM1B.svg)](https://asciinema.org/a/1aDaiyEiggbzW1P7YZaFDoM1B)
