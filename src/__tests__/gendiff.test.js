@@ -58,7 +58,14 @@ describe('flat configs', () => {
         // [`${fixturesPath}test1.yaml`, `${fixturesPath}test2.yaml`, result],
         // [`${fixturesPath}test1.ini`, `${fixturesPath}test2.ini`, result],
     ])('should compare\n%s\n%s\nand return string result', (configBefore, configAfter, expectedResult) => {
-        expect(genDiff.render(genDiff.compare(parseConfig(configBefore), parseConfig(configAfter)))).toEqual(expectedResult);
+        expect(
+            genDiff.render(
+                genDiff.compare(
+                    parseConfig(configBefore),
+                    parseConfig(configAfter),
+                ),
+            ),
+        ).toEqual(expectedResult);
     });
 });
 
@@ -72,6 +79,13 @@ describe('nested configs', () => {
         //        [`${fixturesPath}test1.yaml`, `${fixturesPath}test2.yaml`, result],
         //        [`${fixturesPath}test1.ini`, `${fixturesPath}test2.ini`, result],
     ])('should compare\n%s\n%s\nand return string result', (configBefore, configAfter, expectedResult) => {
-        expect(genDiff.render(genDiff.compare(parseConfig(configBefore), parseConfig(configAfter)))).toEqual(expectedResult);
+        expect(
+            genDiff.render(
+                genDiff.compare(
+                    parseConfig(configBefore),
+                    parseConfig(configAfter),
+                ),
+            ),
+        ).toEqual(expectedResult);
     });
 });
