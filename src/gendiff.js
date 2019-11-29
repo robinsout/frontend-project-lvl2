@@ -2,7 +2,7 @@ import parseConfig from './parsers';
 
 const _ = require('lodash');
 
-const validate = (configBefore, configAfter, result = []) => {
+export const compare = (configBefore, configAfter, result = []) => {
     _.each(configBefore, (value, key) => {
         const oldValueIsObject = typeof value === 'object';
         const newValueIsObject = typeof configAfter[key] === 'object';
@@ -13,17 +13,17 @@ const validate = (configBefore, configAfter, result = []) => {
             const keyToAdd = {
                 keyName: key,
                 keyValue: '',
-                type: '',
+                type: ' ',
                 children: [],
             };
             result.push(keyToAdd);
-            return validate(value, configAfter[key], result[result.length - 1].children);
+            return compare(value, configAfter[key], result[result.length - 1].children);
         }
         if (oldValueIsObject) {
             const keyToAdd = {
                 keyName: key,
                 keyValue: '',
-                type: 'minus',
+                type: '-',
                 children: [value],
             };
             return result.push(keyToAdd);
@@ -32,7 +32,7 @@ const validate = (configBefore, configAfter, result = []) => {
             const keyToAdd = {
                 keyName: key,
                 keyValue: `${value}`,
-                type: 'minus',
+                type: '-',
                 children: [],
             };
             return result.push(keyToAdd);
@@ -41,7 +41,7 @@ const validate = (configBefore, configAfter, result = []) => {
             const keyToAdd = {
                 keyName: key,
                 keyValue: `${value}`,
-                type: '',
+                type: ' ',
                 children: [],
             };
             return result.push(keyToAdd);
@@ -50,13 +50,13 @@ const validate = (configBefore, configAfter, result = []) => {
             const keyBeforeToAdd = {
                 keyName: key,
                 keyValue: `${value}`,
-                type: 'minus',
+                type: '-',
                 children: [],
             };
             const keyAfterToAdd = {
                 keyName: key,
                 keyValue: newValueIsObject ? '' : `${configAfter[key]}`,
-                type: 'plus',
+                type: '+',
                 children: !newValueIsObject ? [] : configAfter[key],
             };
             result.push(keyBeforeToAdd);
@@ -77,7 +77,7 @@ const validate = (configBefore, configAfter, result = []) => {
         const keyToAdd = {
             keyName: key,
             keyValue: typeof value === 'object' ? '' : `${value}`,
-            type: 'plus',
+            type: '+',
             children: typeof value === 'object' ? [value] : [],
         };
         result.push(keyToAdd);
@@ -85,11 +85,23 @@ const validate = (configBefore, configAfter, result = []) => {
     return result;
 };
 
+export const render = (comparedAst, result = [], level = 1) => {
+    _.map(comparedAst, (obj) => {
+        const stringToAdd = `${' '.repeat(level * 2)}${obj.type} ${obj.keyName}: ${obj.keyValue}`;
+        result.push(stringToAdd);
+        console.log(stringToAdd);
+    });
+    result.unshift('{');
+    result.push('}');
+    return result.join('\n');
+};
+
 const action = (firstConfig, secondConfig) => {
     const configBefore = parseConfig(firstConfig);
     const configAfter = parseConfig(secondConfig);
 
-    const result = validate(configBefore, configAfter);
+    const comparedAst = compare(configBefore, configAfter);
+    const result = render(comparedAst);
     return result;
 };
 

@@ -1,4 +1,4 @@
-import genDiff from '../gendiff';
+import * as genDiff from '../gendiff';
 import parseConfig from '../parsers';
 
 const fs = require('fs');
@@ -14,7 +14,15 @@ describe('check flat AST', () => {
         [`${fixturesPath}test1.yaml`, `${fixturesPath}test2.yaml`, result],
         [`${fixturesPath}test1.ini`, `${fixturesPath}test2.ini`, result],
     ])('should compare\n%s\n%s\nand return flat AST result', (configBefore, configAfter, expectedResult) => {
-        expect(genDiff(configBefore, configAfter)).toEqual(expectedResult);
+        expect(
+            genDiff.compare(
+                parseConfig(configBefore),
+                parseConfig(configAfter),
+            ),
+        )
+            .toEqual(
+                expectedResult,
+            );
     });
 });
 
@@ -28,25 +36,33 @@ describe('check nested AST', () => {
         [`${fixturesPath}test1.yaml`, `${fixturesPath}test2.yaml`, result],
         [`${fixturesPath}test1.ini`, `${fixturesPath}test2.ini`, result],
     ])('should compare\n%s\n%s\nand return nested AST result', (configBefore, configAfter, expectedResult) => {
-        expect(genDiff(configBefore, configAfter)).toEqual(expectedResult);
+        expect(
+            genDiff.compare(
+                parseConfig(configBefore),
+                parseConfig(configAfter),
+            ),
+        )
+            .toEqual(
+                expectedResult,
+            );
     });
 });
 
-describe.skip('flat configs', () => {
+describe('flat configs', () => {
     const fixturesPath = `${__dirname}/__fixtures__/flat/`;
     const resultPath = `${fixturesPath}result.txt`;
     const result = fs.readFileSync(resultPath, 'utf8');
 
     test.each([
         [`${fixturesPath}test1.json`, `${fixturesPath}test2.json`, result],
-        [`${fixturesPath}test1.yaml`, `${fixturesPath}test2.yaml`, result],
-        [`${fixturesPath}test1.ini`, `${fixturesPath}test2.ini`, result],
+        // [`${fixturesPath}test1.yaml`, `${fixturesPath}test2.yaml`, result],
+        // [`${fixturesPath}test1.ini`, `${fixturesPath}test2.ini`, result],
     ])('should compare\n%s\n%s\nand return string result', (configBefore, configAfter, expectedResult) => {
-        expect(genDiff(configBefore, configAfter)).toEqual(expectedResult);
+        expect(genDiff.render(genDiff.compare(parseConfig(configBefore), parseConfig(configAfter)))).toEqual(expectedResult);
     });
 });
 
-describe.skip('nested configs', () => {
+describe('nested configs', () => {
     const fixturesPath = `${__dirname}/__fixtures__/nested/`;
     const resultPath = `${fixturesPath}result.txt`;
     const result = fs.readFileSync(resultPath, 'utf8');
@@ -56,6 +72,6 @@ describe.skip('nested configs', () => {
         //        [`${fixturesPath}test1.yaml`, `${fixturesPath}test2.yaml`, result],
         //        [`${fixturesPath}test1.ini`, `${fixturesPath}test2.ini`, result],
     ])('should compare\n%s\n%s\nand return string result', (configBefore, configAfter, expectedResult) => {
-        expect(genDiff(configBefore, configAfter)).toEqual(expectedResult);
+        expect(genDiff.render(genDiff.compare(parseConfig(configBefore), parseConfig(configAfter)))).toEqual(expectedResult);
     });
 });

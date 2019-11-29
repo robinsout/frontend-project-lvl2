@@ -2,37 +2,37 @@
   {
     "keyName": "host",
     "keyValue": "hexlet.io",
-    "type": "",
+    "type": " ",
     "children": []
   },
   {
     "keyName": "timeout",
     "keyValue": "50",
-    "type": "minus",
+    "type": "-",
     "children": []
   },
   {
     "keyName": "timeout",
     "keyValue": "20",
-    "type": "plus",
+    "type": "+",
     "children": []
   },
   {
     "keyName": "proxy",
     "keyValue": "123.234.53.22",
-    "type": "minus",
+    "type": "-",
     "children": []
   },
   {
     "keyName": "follow",
     "keyValue": "false",
-    "type": "minus",
+    "type": "-",
     "children": []
   },
   {
     "keyName": "verbose",
     "keyValue": "true",
-    "type": "plus",
+    "type": "+",
     "children": []
   }
 ]
