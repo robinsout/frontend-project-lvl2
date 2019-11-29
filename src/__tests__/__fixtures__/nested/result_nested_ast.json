@@ -26,9 +26,11 @@
         "keyName": "setting3",
         "keyValue": "",
         "type": "+",
-        "children": {
-          "key": "value"
-        }
+        "children": [
+          {
+            "key": "value"
+          }
+        ]
       },
       {
         "keyName": "setting6",
@@ -105,6 +107,12 @@
             "key": "value"
           }
         ]
+      },
+      {
+        "keyName": "nest",
+        "keyValue": "str",
+        "type": "+",
+        "children": []
       }
     ]
   },

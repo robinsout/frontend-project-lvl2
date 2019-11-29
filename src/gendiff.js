@@ -19,21 +19,12 @@ export const compare = (configBefore, configAfter, result = []) => {
             result.push(keyToAdd);
             return compare(value, configAfter[key], result[result.length - 1].children);
         }
-        if (oldValueIsObject) {
-            const keyToAdd = {
-                keyName: key,
-                keyValue: '',
-                type: '-',
-                children: [value],
-            };
-            return result.push(keyToAdd);
-        }
         if (keyWasRemoved) {
             const keyToAdd = {
                 keyName: key,
-                keyValue: `${value}`,
+                keyValue: oldValueIsObject ? '' : `${value}`,
                 type: '-',
-                children: [],
+                children: oldValueIsObject ? [value] : [],
             };
             return result.push(keyToAdd);
         }
@@ -49,15 +40,15 @@ export const compare = (configBefore, configAfter, result = []) => {
         if (!valuesAreEqual) {
             const keyBeforeToAdd = {
                 keyName: key,
-                keyValue: `${value}`,
+                keyValue: oldValueIsObject ? '' : `${value}`,
                 type: '-',
-                children: [],
+                children: oldValueIsObject ? [value] : [],
             };
             const keyAfterToAdd = {
                 keyName: key,
                 keyValue: newValueIsObject ? '' : `${configAfter[key]}`,
                 type: '+',
-                children: !newValueIsObject ? [] : configAfter[key],
+                children: !newValueIsObject ? [] : [configAfter[key]],
             };
             result.push(keyBeforeToAdd);
             result.push(keyAfterToAdd);
@@ -85,14 +76,26 @@ export const compare = (configBefore, configAfter, result = []) => {
     return result;
 };
 
-export const render = (comparedAst, result = [], level = 1) => {
+export const render = (comparedAst, result = ['{'], indent = 2) => {
     _.map(comparedAst, (obj) => {
-        const stringToAdd = `${' '.repeat(level * 2)}${obj.type} ${obj.keyName}: ${obj.keyValue}`;
-        result.push(stringToAdd);
-        console.log(stringToAdd);
+        if (!Object.keys(obj).includes('children')) {
+            const indentation = `${' '.repeat(indent + 2)}`;
+            Object.getOwnPropertyNames(obj).forEach((key) => {
+                result.push(`${indentation}${key}: ${obj[key]}`);
+            });
+            return result;
+        }
+        const indentation = `${' '.repeat(indent)}`;
+        const braceOrValue = obj.children.length > 0 ? '{' : `${obj.keyValue}`;
+        const type = obj.type === '' ? ' ' : obj.type;
+        result.push(`${indentation}${type} ${obj.keyName}: ${braceOrValue}`);
+
+        if (obj.children.length > 0) {
+            return render(obj.children, result, indent + 4);
+        }
+        return result;
     });
-    result.unshift('{');
-    result.push('}');
+    result.push(`${' '.repeat(indent - 2)}}`);
     return result.join('\n');
 };
 
