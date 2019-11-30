@@ -102,7 +102,6 @@ export const render = (comparedAst, result = ['{'], indent = 2) => {
 const action = (firstConfig, secondConfig) => {
     const configBefore = parseConfig(firstConfig);
     const configAfter = parseConfig(secondConfig);
-
     const comparedAst = compare(configBefore, configAfter);
     const result = render(comparedAst);
     return result;
