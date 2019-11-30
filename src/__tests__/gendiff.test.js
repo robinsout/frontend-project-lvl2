@@ -5,6 +5,14 @@ const fs = require('fs');
 
 const fixturesPath = `${__dirname}/__fixtures__/`;
 
+const compare = (configBefore, configAfter) => genDiff.compare(
+    parseConfig(configBefore),
+    parseConfig(configAfter),
+);
+const render = (configBefore, configAfter) => genDiff.render(
+    compare(configBefore, configAfter),
+);
+
 describe('check AST', () => {
     const flatResult = parseConfig(`${fixturesPath}flat/result_flat_ast.json`);
     const nestedResult = parseConfig(`${fixturesPath}nested/result_nested_ast.json`);
@@ -12,40 +20,34 @@ describe('check AST', () => {
     const flatStringResult = fs.readFileSync(`${fixturesPath}flat/result.txt`, 'utf8');
     const nestedStringResult = fs.readFileSync(`${fixturesPath}nested/result.txt`, 'utf8');
 
-    test.each([
-        [`${fixturesPath}flat/test1.json`, `${fixturesPath}flat/test2.json`, flatResult],
-        [`${fixturesPath}flat/test1.yaml`, `${fixturesPath}flat/test2.yaml`, flatResult],
-        [`${fixturesPath}flat/test1.ini`, `${fixturesPath}flat/test2.ini`, flatResult],
-        [`${fixturesPath}nested/test1.json`, `${fixturesPath}nested/test2.json`, nestedResult],
-        [`${fixturesPath}nested/test1.yaml`, `${fixturesPath}nested/test2.yaml`, nestedResult],
-        [`${fixturesPath}nested/test1.ini`, `${fixturesPath}nested/test2.ini`, nestedResult],
-    ])('should compare\n%s\n%s\nand return AST result', (configBefore, configAfter, expectedResult) => {
-        expect(
-            genDiff.compare(
-                parseConfig(configBefore),
-                parseConfig(configAfter),
-            ),
-        )
-            .toEqual(
-                expectedResult,
-            );
-    });
+    const flatJsonBeforePath = `${fixturesPath}flat/test1.json`;
+    const flatJsonAfterPath = `${fixturesPath}flat/test2.json`;
+    const flatYamlBeforePath = `${fixturesPath}flat/test1.yaml`;
+    const flatYamlAfterPath = `${fixturesPath}flat/test2.yaml`;
+    const flatIniBeforePath = `${fixturesPath}flat/test1.ini`;
+    const flatIniAfterPath = `${fixturesPath}flat/test2.ini`;
+
+    const nestedJsonBeforePath = `${fixturesPath}nested/test1.json`;
+    const nestedJsonAfterPath = `${fixturesPath}nested/test2.json`;
+    const nestedYamlBeforePath = `${fixturesPath}nested/test1.yaml`;
+    const nestedYamlAfterPath = `${fixturesPath}nested/test2.yaml`;
+    const nestedIniBeforePath = `${fixturesPath}nested/test1.ini`;
+    const nestedIniAfterPath = `${fixturesPath}nested/test2.ini`;
 
     test.each([
-        [`${fixturesPath}flat/test1.json`, `${fixturesPath}flat/test2.json`, flatStringResult],
-        [`${fixturesPath}flat/test1.yaml`, `${fixturesPath}flat/test2.yaml`, flatStringResult],
-        [`${fixturesPath}flat/test1.ini`, `${fixturesPath}flat/test2.ini`, flatStringResult],
-        [`${fixturesPath}nested/test1.json`, `${fixturesPath}nested/test2.json`, nestedStringResult],
-        [`${fixturesPath}nested/test1.yaml`, `${fixturesPath}nested/test2.yaml`, nestedStringResult],
-        [`${fixturesPath}nested/test1.ini`, `${fixturesPath}nested/test2.ini`, nestedStringResult],
-    ])('should compare\n%s\n%s\nand return string result', (configBefore, configAfter, expectedResult) => {
-        expect(
-            genDiff.render(
-                genDiff.compare(
-                    parseConfig(configBefore),
-                    parseConfig(configAfter),
-                ),
-            ),
-        ).toEqual(expectedResult);
+        [compare, flatJsonBeforePath, flatJsonAfterPath, flatResult],
+        [compare, flatYamlBeforePath, flatYamlAfterPath, flatResult],
+        [compare, flatIniBeforePath, flatIniAfterPath, flatResult],
+        [compare, nestedJsonBeforePath, nestedJsonAfterPath, nestedResult],
+        [compare, nestedYamlBeforePath, nestedYamlAfterPath, nestedResult],
+        [compare, nestedIniBeforePath, nestedIniAfterPath, nestedResult],
+        [render, flatJsonBeforePath, flatJsonAfterPath, flatStringResult],
+        [render, flatYamlBeforePath, flatYamlAfterPath, flatStringResult],
+        [render, flatIniBeforePath, flatIniAfterPath, flatStringResult],
+        [render, nestedJsonBeforePath, nestedJsonAfterPath, nestedStringResult],
+        [render, nestedYamlBeforePath, nestedYamlAfterPath, nestedStringResult],
+        [render, nestedIniBeforePath, nestedIniAfterPath, nestedStringResult],
+    ])('function: %s\n   file1:\n%s\n   file2:\n%s\nand return result', (action, configBefore, configAfter, expectedResult) => {
+        expect(action(configBefore, configAfter)).toEqual(expectedResult);
     });
 });
