@@ -47,7 +47,7 @@ describe('check AST', () => {
         [render, nestedJsonBeforePath, nestedJsonAfterPath, nestedStringResult],
         [render, nestedYamlBeforePath, nestedYamlAfterPath, nestedStringResult],
         [render, nestedIniBeforePath, nestedIniAfterPath, nestedStringResult],
-    ])('function: %s\n   file1:\n%s\n   file2:\n%s\nand return result', (action, configBefore, configAfter, expectedResult) => {
+    ])('\nfunction: %s\n   file1:\n%s\n   file2:\n%s\n\n', (action, configBefore, configAfter, expectedResult) => {
         expect(action(configBefore, configAfter)).toEqual(expectedResult);
     });
 });
