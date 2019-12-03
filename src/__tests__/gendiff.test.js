@@ -1,5 +1,6 @@
 import * as genDiff from '../gendiff';
 import parseConfig from '../parsers';
+import formatDiff from '../formatters/diff';
 
 const fs = require('fs');
 
@@ -9,7 +10,7 @@ const compare = (configBefore, configAfter) => genDiff.compare(
     parseConfig(configBefore),
     parseConfig(configAfter),
 );
-const render = (configBefore, configAfter) => genDiff.render(
+const render = (configBefore, configAfter) => formatDiff(
     compare(configBefore, configAfter),
 );
 
