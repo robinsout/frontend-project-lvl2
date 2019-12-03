@@ -9,10 +9,10 @@ const program = require('commander');
 program
     .description('Compares two configuration files and shows a difference.')
     .version('0.1.0')
-    .option('-f, --format [type]', 'Output format')
+    .option('-f, --format [type]', 'Output format', 'diff')
     .arguments('<firstConfig> <secondConfig>')
-    .action((firstConfig, secondConfig) => {
-        console.log(compareConfigs(firstConfig, secondConfig));
+    .action((firstConfig, secondConfig, options) => {
+        console.log(compareConfigs(firstConfig, secondConfig, options.format));
     });
 
 program.parse(process.argv);
