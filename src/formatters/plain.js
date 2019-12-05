@@ -1,25 +1,22 @@
 const _ = require('lodash');
 
-const render = (comparedAst, result = ['{'], indent = 2) => {
+const render = (comparedAst, result = []) => {
     _.map(comparedAst, (obj) => {
         if (!Object.keys(obj).includes('children')) {
-            const indentation = `${' '.repeat(indent + 2)}`;
             Object.getOwnPropertyNames(obj).forEach((key) => {
-                result.push(`${indentation}${key}: ${obj[key]}`);
+                result.push(`${key}: ${obj[key]}`);
             });
             return result;
         }
-        const indentation = `${' '.repeat(indent)}`;
         const braceOrValue = obj.children.length > 0 ? '{' : `${obj.keyValue}`;
         const type = obj.type === '' ? ' ' : obj.type;
-        result.push(`${indentation}${type} ${obj.keyName}: ${braceOrValue}`);
+        result.push(`${type} ${obj.keyName}: ${braceOrValue}`);
 
         if (obj.children.length > 0) {
-            return render(obj.children, result, indent + 4);
+            return render(obj.children, result);
         }
         return result;
     });
-    result.push(`${' '.repeat(indent - 2)}}`);
     return result.join('\n');
 };
 

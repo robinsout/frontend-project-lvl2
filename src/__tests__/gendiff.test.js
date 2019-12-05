@@ -14,7 +14,7 @@ const compare = (configBefore, configAfter) => genDiff.compare(
 const renderDiff = (configBefore, configAfter) => formatDiff(
     compare(configBefore, configAfter),
 );
-const renderPlain = (configBefore, configAfter) => formatDiff(
+const renderPlain = (configBefore, configAfter) => formatPlain(
     compare(configBefore, configAfter),
 );
 
