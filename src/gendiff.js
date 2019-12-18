@@ -81,7 +81,6 @@ export const action = (firstConfig, secondConfig, format) => {
     const configBefore = parseConfig(firstConfig);
     const configAfter = parseConfig(secondConfig);
     const comparedAst = compare(configBefore, configAfter);
-    console.log('FORMAT:', format);
     const result = formatters(comparedAst, format);
     return result;
 };
