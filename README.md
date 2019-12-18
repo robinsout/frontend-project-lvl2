@@ -24,3 +24,6 @@ Flat configs:
 
 Nested configs:
 [![asciicast](https://asciinema.org/a/1aDaiyEiggbzW1P7YZaFDoM1B.svg)](https://asciinema.org/a/1aDaiyEiggbzW1P7YZaFDoM1B)
+
+Plain format:
+[![asciicast](https://asciinema.org/a/ux3zML5yiPgBW3L3wH70dz5bQ.svg)](https://asciinema.org/a/ux3zML5yiPgBW3L3wH70dz5bQ)
