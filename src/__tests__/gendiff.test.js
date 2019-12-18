@@ -41,19 +41,19 @@ describe('compare configs', () => {
     const nestedIniAfterPath = `${fixturesPath}nested/test2.ini`;
 
     test.each([
-        // [compare, flatJsonBeforePath, flatJsonAfterPath, flatResult],
-        // [compare, flatYamlBeforePath, flatYamlAfterPath, flatResult],
-        // [compare, flatIniBeforePath, flatIniAfterPath, flatResult],
-        // [compare, nestedJsonBeforePath, nestedJsonAfterPath, nestedResult],
-        // [compare, nestedYamlBeforePath, nestedYamlAfterPath, nestedResult],
-        // [compare, nestedIniBeforePath, nestedIniAfterPath, nestedResult],
-        // [renderDiff, flatJsonBeforePath, flatJsonAfterPath, flatStringResult],
-        // [renderDiff, flatYamlBeforePath, flatYamlAfterPath, flatStringResult],
-        // [renderDiff, flatIniBeforePath, flatIniAfterPath, flatStringResult],
-        // [renderDiff, nestedJsonBeforePath, nestedJsonAfterPath, nestedStringResult],
-        // [renderDiff, nestedYamlBeforePath, nestedYamlAfterPath, nestedStringResult],
-        // [renderDiff, nestedIniBeforePath, nestedIniAfterPath, nestedStringResult],
-        // [renderDiff, nestedIniBeforePath, nestedIniAfterPath, nestedStringResult],
+        [compare, flatJsonBeforePath, flatJsonAfterPath, flatResult],
+        [compare, flatYamlBeforePath, flatYamlAfterPath, flatResult],
+        [compare, flatIniBeforePath, flatIniAfterPath, flatResult],
+        [compare, nestedJsonBeforePath, nestedJsonAfterPath, nestedResult],
+        [compare, nestedYamlBeforePath, nestedYamlAfterPath, nestedResult],
+        [compare, nestedIniBeforePath, nestedIniAfterPath, nestedResult],
+        [renderDiff, flatJsonBeforePath, flatJsonAfterPath, flatStringResult],
+        [renderDiff, flatYamlBeforePath, flatYamlAfterPath, flatStringResult],
+        [renderDiff, flatIniBeforePath, flatIniAfterPath, flatStringResult],
+        [renderDiff, nestedJsonBeforePath, nestedJsonAfterPath, nestedStringResult],
+        [renderDiff, nestedYamlBeforePath, nestedYamlAfterPath, nestedStringResult],
+        [renderDiff, nestedIniBeforePath, nestedIniAfterPath, nestedStringResult],
+        [renderDiff, nestedIniBeforePath, nestedIniAfterPath, nestedStringResult],
         [renderPlain, nestedJsonBeforePath, nestedJsonAfterPath, plainFormatResult],
     ])('\nfunction: %s\n   file1:\n%s\n   file2:\n%s\n\n', (action, configBefore, configAfter, expectedResult) => {
         expect(action(configBefore, configAfter)).toEqual(expectedResult);
