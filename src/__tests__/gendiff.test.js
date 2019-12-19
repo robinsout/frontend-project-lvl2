@@ -53,8 +53,9 @@ describe('compare configs', () => {
         [renderDiff, nestedJsonBeforePath, nestedJsonAfterPath, nestedStringResult],
         [renderDiff, nestedYamlBeforePath, nestedYamlAfterPath, nestedStringResult],
         [renderDiff, nestedIniBeforePath, nestedIniAfterPath, nestedStringResult],
-        [renderDiff, nestedIniBeforePath, nestedIniAfterPath, nestedStringResult],
         [renderPlain, nestedJsonBeforePath, nestedJsonAfterPath, plainFormatResult],
+        [renderPlain, nestedYamlBeforePath, nestedYamlAfterPath, plainFormatResult],
+        [renderPlain, nestedIniBeforePath, nestedIniAfterPath, plainFormatResult],
     ])('\nfunction: %s\n   file1:\n%s\n   file2:\n%s\n\n', (action, configBefore, configAfter, expectedResult) => {
         expect(action(configBefore, configAfter)).toEqual(expectedResult);
     });
