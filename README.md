@@ -29,3 +29,7 @@ Nested configs:
 Plain format:
 
 [![asciicast](https://asciinema.org/a/ux3zML5yiPgBW3L3wH70dz5bQ.svg)](https://asciinema.org/a/ux3zML5yiPgBW3L3wH70dz5bQ)
+
+JSON format:
+
+[![asciicast](https://asciinema.org/a/hHXB1acJswJsYWgi64GpTtIft.svg)](https://asciinema.org/a/hHXB1acJswJsYWgi64GpTtIft)

@@ -2,6 +2,7 @@ import * as genDiff from '../gendiff';
 import parseConfig from '../parsers';
 import formatDiff from '../formatters/diff';
 import formatPlain from '../formatters/plain';
+import formatJson from '../formatters/json';
 
 const fs = require('fs');
 
@@ -17,6 +18,9 @@ const renderDiff = (configBefore, configAfter) => formatDiff(
 const renderPlain = (configBefore, configAfter) => formatPlain(
     compare(configBefore, configAfter),
 );
+const renderJson = (configBefore, configAfter) => formatJson(
+    compare(configBefore, configAfter),
+);
 
 describe('compare configs', () => {
     const flatResult = parseConfig(`${fixturesPath}flat/result_flat_ast.json`);
@@ -25,6 +29,7 @@ describe('compare configs', () => {
     const flatStringResult = fs.readFileSync(`${fixturesPath}flat/result.txt`, 'utf8');
     const nestedStringResult = fs.readFileSync(`${fixturesPath}nested/result.txt`, 'utf8');
     const plainFormatResult = fs.readFileSync(`${fixturesPath}/plain.txt`, 'utf8');
+    const jsonFormatResult = fs.readFileSync(`${fixturesPath}/string_json_result.txt`, 'utf8');
 
     const flatJsonBeforePath = `${fixturesPath}flat/test1.json`;
     const flatJsonAfterPath = `${fixturesPath}flat/test2.json`;
@@ -56,6 +61,9 @@ describe('compare configs', () => {
         [renderPlain, nestedJsonBeforePath, nestedJsonAfterPath, plainFormatResult],
         [renderPlain, nestedYamlBeforePath, nestedYamlAfterPath, plainFormatResult],
         [renderPlain, nestedIniBeforePath, nestedIniAfterPath, plainFormatResult],
+        [renderJson, nestedJsonBeforePath, nestedJsonAfterPath, jsonFormatResult],
+        [renderJson, nestedYamlBeforePath, nestedYamlAfterPath, jsonFormatResult],
+        [renderJson, nestedIniBeforePath, nestedIniAfterPath, jsonFormatResult],
     ])('\nfunction: %s\n   file1:\n%s\n   file2:\n%s\n\n', (action, configBefore, configAfter, expectedResult) => {
         expect(action(configBefore, configAfter)).toEqual(expectedResult);
     });
