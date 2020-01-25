@@ -77,7 +77,7 @@ export const compare = (configBefore, configAfter, result = []) => {
   return result;
 };
 
-export const action = (firstConfig, secondConfig, format) => {
+export const action = (firstConfig, secondConfig, format = 'diff') => {
   const configBefore = parseConfig(firstConfig);
   const configAfter = parseConfig(secondConfig);
   const comparedAst = compare(configBefore, configAfter);
