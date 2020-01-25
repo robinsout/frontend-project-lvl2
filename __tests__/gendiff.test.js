@@ -1,21 +1,9 @@
 import fs from 'fs';
-import * as genDiff from '../src/gendiff';
-import parseConfig from '../src/parsers';
-import formatter from '../src/formatters';
+import genDiff from '../src';
 
 const fixturesPath = `${__dirname}/__fixtures__/`;
 
-const compare = (configBefore, configAfter) => genDiff.compare(
-  parseConfig(configBefore),
-  parseConfig(configAfter),
-);
-const render = (configBefore, configAfter, format) => formatter(
-  compare(configBefore, configAfter), format,
-);
-
 describe('compare configs', () => {
-  const nestedResult = parseConfig(`${fixturesPath}nested/result_nested_ast.json`);
-
   const nestedStringResult = fs.readFileSync(`${fixturesPath}nested/result.txt`, 'utf8');
   const plainFormatResult = fs.readFileSync(`${fixturesPath}/plain.txt`, 'utf8');
   const jsonFormatResult = fs.readFileSync(`${fixturesPath}/string_json_result.txt`, 'utf8');
@@ -28,18 +16,15 @@ describe('compare configs', () => {
   const nestedIniAfterPath = `${fixturesPath}nested/test2.ini`;
 
   test.each([
-    [compare, nestedJsonBeforePath, nestedJsonAfterPath, nestedResult, ''],
-    [compare, nestedYamlBeforePath, nestedYamlAfterPath, nestedResult, ''],
-    [compare, nestedIniBeforePath, nestedIniAfterPath, nestedResult, ''],
-    [render, nestedJsonBeforePath, nestedJsonAfterPath, nestedStringResult, 'diff'],
-    [render, nestedYamlBeforePath, nestedYamlAfterPath, nestedStringResult, 'diff'],
-    [render, nestedIniBeforePath, nestedIniAfterPath, nestedStringResult, 'diff'],
-    [render, nestedJsonBeforePath, nestedJsonAfterPath, plainFormatResult, 'plain'],
-    [render, nestedYamlBeforePath, nestedYamlAfterPath, plainFormatResult, 'plain'],
-    [render, nestedIniBeforePath, nestedIniAfterPath, plainFormatResult, 'plain'],
-    [render, nestedJsonBeforePath, nestedJsonAfterPath, jsonFormatResult, 'json'],
-    [render, nestedYamlBeforePath, nestedYamlAfterPath, jsonFormatResult, 'json'],
-    [render, nestedIniBeforePath, nestedIniAfterPath, jsonFormatResult, 'json'],
+    [genDiff, nestedJsonBeforePath, nestedJsonAfterPath, nestedStringResult, 'diff'],
+    [genDiff, nestedYamlBeforePath, nestedYamlAfterPath, nestedStringResult, 'diff'],
+    [genDiff, nestedIniBeforePath, nestedIniAfterPath, nestedStringResult, 'diff'],
+    [genDiff, nestedJsonBeforePath, nestedJsonAfterPath, plainFormatResult, 'plain'],
+    [genDiff, nestedYamlBeforePath, nestedYamlAfterPath, plainFormatResult, 'plain'],
+    [genDiff, nestedIniBeforePath, nestedIniAfterPath, plainFormatResult, 'plain'],
+    [genDiff, nestedJsonBeforePath, nestedJsonAfterPath, jsonFormatResult, 'json'],
+    [genDiff, nestedYamlBeforePath, nestedYamlAfterPath, jsonFormatResult, 'json'],
+    [genDiff, nestedIniBeforePath, nestedIniAfterPath, jsonFormatResult, 'json'],
   ])('\nfunction: %s\n   file1:\n%s\n   file2:\n%s\n\n', (action, configBefore, configAfter, expectedResult, format) => {
     expect(action(configBefore, configAfter, format)).toEqual(expectedResult);
   });

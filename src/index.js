@@ -2,7 +2,6 @@
 
 import compareConfigs from './gendiff';
 
-export default compareConfigs;
 
 const program = require('commander');
 
@@ -16,3 +15,5 @@ program
   });
 
 program.parse(process.argv);
+
+export default compareConfigs;
