@@ -1,9 +1,6 @@
 #!/usr/bin/env node
-
+import program from 'commander';
 import compareConfigs from './gendiff';
-
-
-const program = require('commander');
 
 program
   .description('Compares two configuration files and shows a difference.')

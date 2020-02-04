@@ -1,7 +1,7 @@
-const fs = require('fs');
-const path = require('path');
-const yaml = require('js-yaml');
-const ini = require('ini');
+import fs from 'fs';
+import path from 'path';
+import yaml from 'js-yaml';
+import ini from 'ini';
 
 const parseJson = (inputPath) => JSON.parse(fs.readFileSync(inputPath, 'utf8'));
 const parseYaml = (inputPath) => yaml.safeLoad(fs.readFileSync(inputPath, 'utf8'));

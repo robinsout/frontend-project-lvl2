@@ -1,7 +1,6 @@
+import _ from 'lodash';
 import parseConfig from './parsers';
 import formatters from './formatters';
-
-const _ = require('lodash');
 
 export const compare = (configBefore, configAfter, result = []) => {
   _.each(configBefore, (value, key) => {
