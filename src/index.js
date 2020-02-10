@@ -5,7 +5,7 @@ import compareConfigs from './gendiff';
 program
   .description('Compares two configuration files and shows a difference.')
   .version('0.1.3')
-  .option('-f, --format [type]', 'Output format', 'diff')
+  .option('-f, --format [type]', 'output format', 'diff')
   .arguments('<firstConfig> <secondConfig>')
   .action((firstConfig, secondConfig, options) => {
     console.log(compareConfigs(firstConfig, secondConfig, options.format));

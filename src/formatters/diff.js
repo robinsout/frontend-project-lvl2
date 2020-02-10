@@ -17,8 +17,8 @@ const render = (comparedAst, result = ['{'], indent = 2) => {
     }
     const indentation = `${' '.repeat(indent)}`;
     const braceOrValue = obj.children.length > 0 ? '{' : `${obj.keyValue}`;
-    const type = diffSignsMapping[obj.type];
-    result.push(`${indentation}${type} ${obj.keyName}: ${braceOrValue}`);
+    const diffSign = diffSignsMapping[obj.type];
+    result.push(`${indentation}${diffSign} ${obj.keyName}: ${braceOrValue}`);
 
     if (obj.children.length > 0) {
       return render(obj.children, result, indent + 4);
