@@ -2,14 +2,27 @@ import _ from 'lodash';
 
 const render = (comparedAst, result = [], parents = '') => {
   _.map(comparedAst, (obj) => {
-    if (obj.type === '') {
+    const propertyUnchanged = !obj.type;
+    if (propertyUnchanged) {
       return result;
     }
+
     const currentPropertyIndex = _.indexOf(comparedAst, obj);
     const fullPropertyName = `${parents}${obj.keyName}`;
 
-    if (currentPropertyIndex + 1 < comparedAst.length
-            && comparedAst[currentPropertyIndex + 1].keyName === obj.keyName) {
+    const propertyWasUpdated = (
+      currentPropertyIndex + 1 < comparedAst.length
+      && comparedAst[currentPropertyIndex + 1].keyName === obj.keyName
+    );
+
+    const propertyWasRemoved = obj.type === 'removed';
+
+    const propertyWasAdded = (
+      obj.type === 'added'
+      && comparedAst[currentPropertyIndex - 1].keyName !== obj.keyName
+    );
+
+    if (propertyWasUpdated) {
       const oldValue = `${obj.children.length > 0 ? '[complex value]' : `'${obj.keyValue}'`}`;
       const nextProperty = comparedAst[currentPropertyIndex + 1];
       const newValue = `${nextProperty.children.length > 0 ? '[complex value]' : `'${nextProperty.keyValue}'`}`;
@@ -17,12 +30,12 @@ const render = (comparedAst, result = [], parents = '') => {
       return result.push(stringToAdd);
     }
 
-    if (obj.type === '-') {
+    if (propertyWasRemoved) {
       const stringToAdd = `Property '${fullPropertyName}' was removed`;
       return result.push(stringToAdd);
     }
 
-    if (obj.type === '+' && comparedAst[currentPropertyIndex - 1].keyName !== obj.keyName) {
+    if (propertyWasAdded) {
       const stringToAdd = `Property '${fullPropertyName}' was added with value: ${obj.children.length > 0 ? '[complex value]' : `'${obj.keyValue}'`}`;
       return result.push(stringToAdd);
     }

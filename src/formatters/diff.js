@@ -1,5 +1,11 @@
 import _ from 'lodash';
 
+const diffSignsMapping = {
+  unchanged: ' ',
+  added: '+',
+  removed: '-',
+};
+
 const render = (comparedAst, result = ['{'], indent = 2) => {
   _.map(comparedAst, (obj) => {
     if (!Object.keys(obj).includes('children')) {
@@ -11,7 +17,7 @@ const render = (comparedAst, result = ['{'], indent = 2) => {
     }
     const indentation = `${' '.repeat(indent)}`;
     const braceOrValue = obj.children.length > 0 ? '{' : `${obj.keyValue}`;
-    const type = obj.type === '' ? ' ' : obj.type;
+    const type = diffSignsMapping[obj.type];
     result.push(`${indentation}${type} ${obj.keyName}: ${braceOrValue}`);
 
     if (obj.children.length > 0) {

@@ -13,7 +13,7 @@ export const compare = (configBefore, configAfter, result = []) => {
       const keyToAdd = {
         keyName: key,
         keyValue: '',
-        type: ' ',
+        type: 'unchanged',
         children: [],
       };
       result.push(keyToAdd);
@@ -23,7 +23,7 @@ export const compare = (configBefore, configAfter, result = []) => {
       const keyToAdd = {
         keyName: key,
         keyValue: oldValueIsObject ? '' : `${value}`,
-        type: '-',
+        type: 'removed',
         children: oldValueIsObject ? [value] : [],
       };
       return result.push(keyToAdd);
@@ -32,7 +32,7 @@ export const compare = (configBefore, configAfter, result = []) => {
       const keyToAdd = {
         keyName: key,
         keyValue: `${value}`,
-        type: ' ',
+        type: 'unchanged',
         children: [],
       };
       return result.push(keyToAdd);
@@ -41,13 +41,13 @@ export const compare = (configBefore, configAfter, result = []) => {
       const keyBeforeToAdd = {
         keyName: key,
         keyValue: oldValueIsObject ? '' : `${value}`,
-        type: '-',
+        type: 'removed',
         children: oldValueIsObject ? [value] : [],
       };
       const keyAfterToAdd = {
         keyName: key,
         keyValue: newValueIsObject ? '' : `${configAfter[key]}`,
-        type: '+',
+        type: 'added',
         children: !newValueIsObject ? [] : [configAfter[key]],
       };
       result.push(keyBeforeToAdd);
@@ -68,7 +68,7 @@ export const compare = (configBefore, configAfter, result = []) => {
     const keyToAdd = {
       keyName: key,
       keyValue: typeof value === 'object' ? '' : `${value}`,
-      type: '+',
+      type: 'added',
       children: typeof value === 'object' ? [value] : [],
     };
     result.push(keyToAdd);
